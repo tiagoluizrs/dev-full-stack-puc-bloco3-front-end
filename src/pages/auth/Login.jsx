@@ -4,7 +4,7 @@ import wallpaper from '../../assets/images/wallpaper.jpg';
 import Auth from "../../services/Authentication";
 import React from "react";
 import { useToast } from '../../hooks/ToastContext';
-import {useAuth} from "../../hooks/AuthContext";
+import { Link } from 'react-router-dom';
 
 const Login = ({ login }) => {
     const [data, setData] = React.useState({
@@ -105,6 +105,11 @@ const Login = ({ login }) => {
                             id="password"
                             autoComplete="current-password"
                         />
+                        <Link to={"/register"} variant="body2" style={{ textDecoration: 'none' }}>
+                            <Typography variant="body2" color="primary">
+                                {"Não possui uma conta? Registre-se"}
+                            </Typography>
+                        </Link>
                         <Button
                             fullWidth
                             variant="contained"
