@@ -1,0 +1,8 @@
+services:
+  front-end:
+    build: .
+    ports:
+      - "3000:80"
+    volumes:
+      - .:/app
+    restart: always
