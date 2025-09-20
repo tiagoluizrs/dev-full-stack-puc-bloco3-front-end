@@ -1,0 +1,106 @@
+import { useState, useCallback } from 'react';
+import Api from '../services/Api';
+
+const HABITS_URL = '/habits';
+
+const useHabits = () => {
+  const [habits, setHabits] = useState([]);
+  const [habit, setHabit] = useState(null); // Novo estado para hábito individual
+  const [dashboard, setDashboard] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchHabits = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await Api.get(HABITS_URL, true);
+      setHabits(data);
+    } catch (err) {
+      setError('Erro ao buscar hábitos');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchHabitById = useCallback(async (id) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await Api.get(`${HABITS_URL}/${id}`, true);
+      setHabit(data);
+    } catch (err) {
+      setError('Erro ao buscar hábito');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchDashboard = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await Api.get(`${HABITS_URL}/dashboard`, true);
+      setDashboard(data);
+    } catch (err) {
+      setError('Erro ao buscar dashboard');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const createHabit = useCallback(async (habit) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await Api.post(HABITS_URL, habit, true);
+      await fetchHabits();
+    } catch (err) {
+      setError('Erro ao criar hábito');
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchHabits]);
+
+  const updateHabit = useCallback(async (id, habit) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await Api.put(`${HABITS_URL}/${id}`, habit, true);
+      await fetchHabits();
+    } catch (err) {
+      setError('Erro ao atualizar hábito');
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchHabits]);
+
+  const deleteHabit = useCallback(async (id) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await Api.delete(`${HABITS_URL}/${id}`, true);
+      await fetchHabits();
+    } catch (err) {
+      setError('Erro ao remover hábito');
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchHabits]);
+
+  return {
+    habits,
+    habit,
+    dashboard,
+    loading,
+    error,
+    fetchHabits,
+    fetchHabitById,
+    fetchDashboard,
+    createHabit,
+    updateHabit,
+    deleteHabit,
+  };
+};
+
+export default useHabits;
