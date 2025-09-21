@@ -14,22 +14,11 @@ const Home = () => {
     const { showToast } = useToast();
     const { fetchDashboard, dashboard } = useHabits();
     const theme = useTheme();
-    const categories = [
-        {value: '', label: 'Todas'},
-        {value: 'transporte', label: 'Transporte'},
-        {value: 'energia', label: 'Energia'}
-    ];
     const [form, setForm] = useState({
         category: '',
         start_date: '',
         end_date: '',
     });
-
-    console.log(dashboard)
-
-    const handleAutocomplete = (field, value) => {
-        setForm({...form, [field]: value ? (value.value || value) : null});
-    };
 
     const handleDateChange = (field, value) => {
         // value pode ser null ou dayjs
@@ -71,17 +60,6 @@ const Home = () => {
                             <Typography variant="h6" component="h1">
                                 Filtros:
                             </Typography>
-                        </Grid>
-                        <Grid size={{xs: 12, md: 3, lg: 2}}>
-                            <Autocomplete
-                                disablePortal
-                                options={categories}
-                                getOptionLabel={option => option.label}
-                                value={categories.find(opt => opt.value === form.category) || null}
-                                onChange={(_, value) => handleAutocomplete('category', value)}
-                                sx={{mt: 2, mb: 1}}
-                                renderInput={(params) => <TextField {...params} label="Categoria" required/>}
-                            />
                         </Grid>
                         <Grid size={{xs: 12, md: 2}} sx={{ pt: 1 }}>
                             <DatePicker
