@@ -91,7 +91,7 @@ const Home = () => {
                 </Grid>
                 <Grid size={{xs: 0, md: 3, lg: 4}}>
                     <Typography variant="h6" component="h1">
-                        Hábitos de maior impacto no período (Transporte):
+                        Hábitos de maior impacto no período (Transporte) em CO₂/G:
                     </Typography>
                     <BarChart
                         xAxis={[{ data: dashboard?.transport_habit_ranking_on_period ? dashboard?.transport_habit_ranking_on_period?.labels : [] }]}
@@ -101,7 +101,7 @@ const Home = () => {
                 </Grid>
                 <Grid size={{xs: 0, md: 3, lg: 4}}>
                     <Typography variant="h6" component="h1">
-                        Hábitos de maior impacto no período (Energia):
+                        Hábitos de maior impacto no período (Energia) em kWh:
                     </Typography>
                     <BarChart
                         xAxis={[{ data: dashboard?.energy_habit_ranking_on_period ? dashboard?.energy_habit_ranking_on_period?.labels : [] }]}
