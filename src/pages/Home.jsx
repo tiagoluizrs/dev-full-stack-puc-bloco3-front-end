@@ -8,9 +8,6 @@ const Home = () => {
 
     return <>
         <h1>Home - Autenticado!</h1>
-        <Fab color="primary" aria-label="add" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() => navigate('/habit')}>
-            <AddIcon/>
-        </Fab>
     </>;
 }
 

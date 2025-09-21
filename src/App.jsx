@@ -24,7 +24,7 @@ function PrivateRoute({ children, isAuthenticated, logout }) {
     const navigate = useNavigate();
 
     return isAuthenticated ? (
-        <Box sx={{ position: 'relative', minHeight: '100vh' }}>
+        <Box sx={{ position: 'fixed', width: '100%', minHeight: '100vh' }}>
             <AppBar position="static">
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box>

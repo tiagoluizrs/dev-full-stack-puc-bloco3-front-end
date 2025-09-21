@@ -4,11 +4,13 @@ const URL = process.env.REACT_APP_AUTH_URL + '/auth';
 
 const Auth = {
     login: async (data) => {
-        return await Api.post(`${URL}/login`, data);
+        const response = await Api.post(`${URL}/login`, data);
+        return await response.json();
     },
 
     register: async (data) => {
-        return await Api.post(`${URL}/register`, data);
+        const response = await Api.post(`${URL}/register`, data);
+        return await response.json();
     },
 };
 

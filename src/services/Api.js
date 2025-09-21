@@ -15,34 +15,30 @@ const getHeader = (auth = false) => {
 
 const Api = {
   get: async (url, auth = false) => {
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: 'GET',
       headers: getHeader(auth),
     });
-    return response.json();
   },
   post: async (url, data, auth = false) => {
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: 'POST',
       headers: getHeader(auth),
       body: JSON.stringify(data),
     });
-    return response.json();
   },
   put: async (url, data, auth = false) => {
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: 'PUT',
       headers: getHeader(auth),
       body: JSON.stringify(data),
     });
-    return response.json();
   },
   delete: async (url, auth = false) => {
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: 'DELETE',
       headers: getHeader(auth),
     });
-    return response.json();
   },
 };
 

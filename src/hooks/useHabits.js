@@ -1,9 +1,15 @@
 import { useState, useCallback } from 'react';
 import Api from '../services/Api';
+import {useToast} from "./ToastContext";
+import {useAuth} from "./AuthContext";
+import {useNavigate} from "react-router-dom";
 
-const HABITS_URL = '/habits';
+const HABITS_URL = process.env.REACT_APP_HABIT_URL + '/habits';
 
 const useHabits = () => {
+  const navigate = useNavigate()
+  const { showToast } = useToast();
+  const { logout } = useAuth();
   const [habits, setHabits] = useState([]);
   const [habit, setHabit] = useState(null); // Novo estado para hábito individual
   const [dashboard, setDashboard] = useState(null);
@@ -15,7 +21,8 @@ const useHabits = () => {
     setError(null);
     try {
       const data = await Api.get(HABITS_URL, true);
-      setHabits(data);
+      const result = await data.json()
+      setHabits(result);
     } catch (err) {
       setError('Erro ao buscar hábitos');
     } finally {
@@ -28,7 +35,8 @@ const useHabits = () => {
     setError(null);
     try {
       const data = await Api.get(`${HABITS_URL}/${id}`, true);
-      setHabit(data);
+      const result = await data.json()
+      setHabit(result);
     } catch (err) {
       setError('Erro ao buscar hábito');
     } finally {
@@ -41,7 +49,7 @@ const useHabits = () => {
     setError(null);
     try {
       const data = await Api.get(`${HABITS_URL}/dashboard`, true);
-      setDashboard(data);
+      setDashboard(data.json());
     } catch (err) {
       setError('Erro ao buscar dashboard');
     } finally {
@@ -53,8 +61,17 @@ const useHabits = () => {
     setLoading(true);
     setError(null);
     try {
-      await Api.post(HABITS_URL, habit, true);
+      const response = await Api.post(HABITS_URL, habit, true);
       await fetchHabits();
+      if (response.status === 201) {
+        showToast('Hábito cadastrado com sucesso!', 'success');
+        navigate("/habits");
+      }
+      else if (response.status === 401) {
+        showToast('Sessão expirada. Faça login novamente.', 'error');
+        logout();
+        navigate("/login");
+      }
     } catch (err) {
       setError('Erro ao criar hábito');
     } finally {
@@ -66,8 +83,17 @@ const useHabits = () => {
     setLoading(true);
     setError(null);
     try {
-      await Api.put(`${HABITS_URL}/${id}`, habit, true);
+      const response = await Api.put(`${HABITS_URL}/${id}`, habit, true);
       await fetchHabits();
+      if (response.status === 200) {
+        showToast('Hábito alterado com sucesso!', 'success');
+        navigate("/habits");
+      }
+      else if (response.status === 401) {
+        showToast('Sessão expirada. Faça login novamente.', 'error');
+        logout();
+        navigate("/login");
+      }
     } catch (err) {
       setError('Erro ao atualizar hábito');
     } finally {
