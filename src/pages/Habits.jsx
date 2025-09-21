@@ -4,9 +4,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import useHabits from "../hooks/useHabits";
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
@@ -23,9 +22,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 
 const getCategoryIcon = (category) => {
-  if (category === 'transporte') return <ImageIcon />;
-  if (category === 'energia') return <WorkIcon />;
-  if (category === 'alimentacao') return <BeachAccessIcon />;
+  if (category === 'transporte') return <DirectionsCarIcon />;
+  if (category === 'energia') return <ElectricBoltIcon />;
   return <Avatar />;
 };
 

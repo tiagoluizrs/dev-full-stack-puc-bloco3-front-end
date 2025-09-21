@@ -20,8 +20,21 @@ const theme = createTheme({
     }
 });
 
-function PrivateRoute({ children, isAuthenticated, logout }) {
+function PrivateRoute({ children, isAuthenticated, logout,  validateToken }) {
     const navigate = useNavigate();
+
+    const checkAuth = async () => {
+        const valid = await validateToken();
+        if (!valid) {
+            logout();
+            navigate('/login');
+        }
+    }
+
+    React.useEffect(() => {
+        checkAuth();
+    }, []);
+
 
     return isAuthenticated ? (
         <Box sx={{ position: 'fixed', width: '100%', minHeight: '100vh' }}>
@@ -46,7 +59,7 @@ function PublicRoute({ children, isAuthenticated }) {
 }
 
 const App = () => {
-    const { isAuthenticated, login, logout } = useAuth();
+    const { isAuthenticated, login, logout, validateToken, user } = useAuth();
 
     return (
         <ThemeProvider theme={theme}>
@@ -65,22 +78,22 @@ const App = () => {
                                 </PublicRoute>
                             } />
                             <Route path="/" element={
-                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout}>
+                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout} validateToken={validateToken}>
                                     <Home />
                                 </PrivateRoute>
                             } />
                             <Route path="/habits" element={
-                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout}>
+                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout} validateToken={validateToken}>
                                     <Habits />
                                 </PrivateRoute>
                             } />
                             <Route path="/habit" element={
-                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout}>
+                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout} validateToken={validateToken}>
                                     <Habit />
                                 </PrivateRoute>
                             } />
                             <Route path="/habit/:id" element={
-                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout}>
+                                <PrivateRoute isAuthenticated={isAuthenticated} logout={logout} validateToken={validateToken}>
                                     <Habit />
                                 </PrivateRoute>
                             } />

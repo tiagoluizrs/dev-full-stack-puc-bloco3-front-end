@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import Auth from "../services/Authentication";
 
 const USER_KEY = 'user';
 
@@ -34,10 +35,22 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         setUser(getStoredUser());
+        validateToken();
     }, []);
 
+    const validateToken = async () => {
+        const storedUser = getStoredUser();
+        if (!storedUser || !storedUser.token) return false;
+        try {
+            return await Auth.tokenIsValid(storedUser.token);
+        } catch {
+            return false;
+        }
+
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, login, logout, validateToken }}>
             {children}
         </AuthContext.Provider>
     );
@@ -46,4 +59,3 @@ export function AuthProvider({ children }) {
 export function useAuth() {
     return useContext(AuthContext);
 }
-

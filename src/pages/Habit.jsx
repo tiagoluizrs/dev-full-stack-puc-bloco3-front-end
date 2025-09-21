@@ -2,9 +2,9 @@ import {Grid, Box, Typography, TextField, Button, Avatar} from '../components';
 import Autocomplete from '@mui/material/Autocomplete';
 import logo from '../assets/images/logo.png';
 import React, {useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
 import useHabits from "../hooks/useHabits";
 import {useToast} from "../hooks/ToastContext";
+import {useParams} from "react-router-dom";
 
 const categories = [
     {value: 'transporte', label: 'Transporte'},
@@ -19,8 +19,7 @@ const frequencies = [
 
 const units = [
     {value: 'km', label: 'Km'},
-    {value: 'kwh', label: 'KWh'},
-    {value: 'refeicoes', label: 'Refeições'},
+    {value: 'kwh', label: 'KWh'}
 ];
 
 const estados = [
