@@ -131,58 +131,6 @@ const Home = () => {
                         height={300}
                     />
                 </Grid>
-                <Grid size={{xs: 12, md: 6}}>
-                    <Typography variant="h6" component="h1">
-                        Evolução da economia de energia no período:
-                    </Typography>
-                    <LineChart
-                        xAxis={[{
-                            scaleType: 'time',
-                            data: dashboard?.economy_transport_evolution_on_period
-                                ? dashboard?.economy_transport_evolution_on_period?.days.map(date => new Date(date))
-                                : [],
-                            tickFormatter: value => {
-                                const d = new Date(value);
-                                return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getFullYear()}`;
-                            }
-                        }]}
-                        series={[
-                            {
-                                data: dashboard?.economy_transport_evolution_on_period
-                                    ? dashboard?.economy_transport_evolution_on_period?.data
-                                    : [],
-                                color: theme.palette.primary.main
-                            }
-                        ]}
-                        height={200}
-                        margin={{ bottom: 10 }}
-                    />
-                </Grid>
-                <Grid size={{xs: 12, md: 6}}>
-                    <Typography variant="h6" component="h1">
-                        Evolução da economia de CO₂ no período:
-                    </Typography>
-                    <LineChart
-                        xAxis={[{
-                            scaleType: 'time',
-                            data: dashboard?.economy_energy_evolution_on_period
-                                ? dashboard?.economy_energy_evolution_on_period?.days.map(date => new Date(date))
-                                : [],
-                            tickFormatter: value => {
-                                const d = new Date(value);
-                                return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getFullYear()}`;
-                            }
-                        }]}
-                        series={[{
-                            data: dashboard?.economy_energy_evolution_on_period
-                                ? dashboard?.economy_energy_evolution_on_period?.data
-                                : [],
-                            color: theme.palette.primary.main
-                        }]}
-                        height={200}
-                        margin={{ bottom: 10 }}
-                    />
-                </Grid>
             </Grid>;
 }
 
