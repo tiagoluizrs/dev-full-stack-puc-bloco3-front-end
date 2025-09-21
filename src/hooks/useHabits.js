@@ -20,7 +20,7 @@ const useHabits = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await Api.get(HABITS_URL, true);
+      const data = await Api.get(HABITS_URL, null,true);
       const result = await data.json()
       setHabits(result);
     } catch (err) {
@@ -34,7 +34,7 @@ const useHabits = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await Api.get(`${HABITS_URL}/${id}`, true);
+      const data = await Api.get(`${HABITS_URL}/${id}`, null,true);
       const result = await data.json()
       setHabit(result);
     } catch (err) {
@@ -44,12 +44,13 @@ const useHabits = () => {
     }
   }, []);
 
-  const fetchDashboard = useCallback(async () => {
+  const fetchDashboard = useCallback(async (params) => {
     setLoading(true);
     setError(null);
     try {
-      const data = await Api.get(`${HABITS_URL}/dashboard`, true);
-      setDashboard(data.json());
+      const response = await Api.get(`${HABITS_URL}/dashboard`, params,true);
+      const result = await response.json();
+      setDashboard(result);
     } catch (err) {
       setError('Erro ao buscar dashboard');
     } finally {

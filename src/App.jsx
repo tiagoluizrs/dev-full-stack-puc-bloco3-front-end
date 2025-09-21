@@ -15,6 +15,7 @@ const theme = createTheme({
     palette: {
         primary: { main: '#19d285' }, // verde do logo
         secondary: { main: '#ffcc00' }, // amarelo do logo
+        tertiary: { main: '#ff5733' }, // laranja do logo
         background: { default: '#f5f5f5' }, // cor de fundo do logo
         // ...outras cores
     }

@@ -14,8 +14,13 @@ const getHeader = (auth = false) => {
 };
 
 const Api = {
-  get: async (url, auth = false) => {
-    return await fetch(url, {
+  get: async (url, params, auth = false) => {
+    let finalUrl = url;
+    if (params && typeof params === 'object' && Object.keys(params).length > 0) {
+      const queryString = new URLSearchParams(params).toString();
+      finalUrl = `${url}?${queryString}`;
+    }
+    return await fetch(finalUrl, {
       method: 'GET',
       headers: getHeader(auth),
     });
@@ -43,4 +48,3 @@ const Api = {
 };
 
 export default Api;
-
