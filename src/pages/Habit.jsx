@@ -6,20 +6,10 @@ import useHabits from "../hooks/useHabits";
 import {useToast} from "../hooks/ToastContext";
 import {useParams} from "react-router-dom";
 
-const categories = [
-    {value: 'transporte', label: 'Transporte'},
-    {value: 'energia', label: 'Energia'}
-];
-
 const frequencies = [
     {value: 'diario', label: 'Diário'},
     {value: 'semanal', label: 'Semanal'},
     {value: 'mensal', label: 'Mensal'},
-];
-
-const units = [
-    {value: 'km', label: 'Km'},
-    {value: 'kwh', label: 'KWh'}
 ];
 
 const estados = [
@@ -36,9 +26,7 @@ const Habit = () => {
     const { createHabit, fetchHabitById, updateHabit, habit } = useHabits();
     const [form, setForm] = useState({
         name: '',
-        category: null,
         frequency: null,
-        unit: null,
         quantity: '',
         start_date: '',
         location: null,
@@ -56,9 +44,7 @@ const Habit = () => {
         if (id && habit) {
             setForm({
                 name: habit.name || '',
-                category: habit.category || null,
                 frequency: habit.frequency || null,
-                unit: habit.unit || null,
                 quantity: habit.quantity || '',
                 start_date: habit.start_date || '',
                 location: habit.location || null,
@@ -79,9 +65,7 @@ const Habit = () => {
     const handleSubmit = () => {
         const requiredFields = [
             form.name,
-            form.category,
             form.frequency,
-            form.unit,
             form.quantity,
             form.start_date,
             form.location
@@ -126,30 +110,12 @@ const Habit = () => {
                         />
                         <Autocomplete
                             disablePortal
-                            options={categories}
-                            getOptionLabel={option => option.label}
-                            value={categories.find(opt => opt.value === form.category) || null}
-                            onChange={(_, value) => handleAutocomplete('category', value)}
-                            sx={{mt: 2, mb: 1}}
-                            renderInput={(params) => <TextField {...params} label="Categoria" required/>}
-                        />
-                        <Autocomplete
-                            disablePortal
                             options={frequencies}
                             getOptionLabel={option => option.label}
                             value={frequencies.find(opt => opt.value === form.frequency) || null}
                             onChange={(_, value) => handleAutocomplete('frequency', value)}
                             sx={{mt: 2, mb: 1}}
                             renderInput={(params) => <TextField {...params} label="Frequência" required/>}
-                        />
-                        <Autocomplete
-                            disablePortal
-                            options={units}
-                            getOptionLabel={option => option.label}
-                            value={units.find(opt => opt.value === form.unit) || null}
-                            onChange={(_, value) => handleAutocomplete('unit', value)}
-                            sx={{mt: 2, mb: 1}}
-                            renderInput={(params) => <TextField {...params} label="Unidade" required/>}
                         />
                         <TextField
                             margin="normal"
