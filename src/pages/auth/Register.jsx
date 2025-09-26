@@ -8,30 +8,30 @@ import {Link} from "react-router-dom";
 
 const Register = () => {
     const [data, setData] = React.useState({
-        userEmail: '',
+        username: '',
+        email: '',
         password: '',
-        confirmPassword: ''
+        passwordConfirm: ''
     });
     const { showToast } = useToast();
 
-    const signIn = () => {
-        if (data.userEmail === '' || data.password === '' || data.confirmPassword === '') {
+    const signUp = () => {
+        if (data.username === '' || data.email === '' || data.password === '' || data.passwordConfirm === '') {
             showToast('Preencha todos os campos', 'warning');
             return;
         }
 
-        if (data.password !== data.confirmPassword) {
+        if (data.password !== data.passwordConfirm) {
             showToast('As senhas não coincidem', 'warning');
             return;
         }
 
         Auth.register(data).then(res => {
+            console.log(res)
             if (res.error) {
                 showToast(res.error, 'error');
-            } else if (res.token && res.user) {
-                showToast('Registro realizado com sucesso', 'success');
             } else {
-                showToast('Erro inesperado ao registrar', 'error');
+                showToast('Registro realizado com sucesso', 'success');
             }
         }).catch(() => {
             showToast('Erro de conexão com o servidor', 'error');
@@ -74,13 +74,24 @@ const Register = () => {
                     </Typography>
                     <Box component="form" sx={{ mt: 1 }}>
                         <TextField
+                            margin="E-mail"
+                            fullWidth
+                            id="email"
+                            label="Email"
+                            value={data.email}
+                            onChange={e => setData({ ...data, email: e.target.value })}
+                            name="email"
+                            type="email"
+                            autoFocus
+                        />
+                        <TextField
                             margin="normal"
                             fullWidth
-                            id="userEmail"
-                            label="Email/Usuário"
-                            value={data.userEmail}
-                            onChange={e => setData({ ...data, userEmail: e.target.value })}
-                            name="userEmail"
+                            id="username"
+                            label="Usuário"
+                            value={data.username}
+                            onChange={e => setData({ ...data, username: e.target.value })}
+                            name="username"
                             autoFocus
                         />
                         <TextField
@@ -113,9 +124,9 @@ const Register = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={signIn}
+                            onClick={signUp}
                         >
-                            Entrar
+                            Cadastrar
                         </Button>
                     </Box>
                 </Box>
