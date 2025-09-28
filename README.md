@@ -11,8 +11,17 @@ Cada um dos 3 projetos terá o mesmo diagrama, apenas com uma diferença que é 
 
 ## Pré-requisitos
 - Docker e Docker Compose (opcional, para rodar com Docker)
-- Aplicação Auth API
-- Aplicação Habits API
+- Aplicação Auth API precisa estar rodando (Siga o manul readme da aplicação)
+- Aplicação Habits API precisa estar rodando (Siga o manul readme da aplicação)
+
+Usando o .env_example adicione as configurações.
+
+```
+REACT_APP_AUTH_URL="http://localhost:5002"
+REACT_APP_HABIT_URL="http://localhost:5003"
+```
+
+Se você alterar alguma configuração, ajuste aqui
 
 ## Como rodar com Docker
 

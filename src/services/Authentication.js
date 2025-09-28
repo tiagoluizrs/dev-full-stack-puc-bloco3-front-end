@@ -13,12 +13,14 @@ const Auth = {
         return await response.json();
     },
     tokenIsValid: async (token) => {
-        const response = await Api.post(`${URL}/validate-token`, { token });
         try {
+            const response = await Api.post(`${URL}/validate-token`, { token });
             const status = await response.status;
             if (status === 401) {
+                alert('oi')
                 const responseData = await response.json();
                 if (responseData.message === 'Token expirado') {
+                    alert(responseData)
                     const response = await Api.post(`${URL}/reset-token`, { token });
                     const resetStatus = await response.status;
                     if (resetStatus === 200) {
@@ -31,9 +33,9 @@ const Auth = {
                 }
                 return false;
             }
-
             return status === 200;
         } catch (error) {
+            alert(error)
             return false;
         }
     },
